@@ -1,0 +1,21 @@
+# general
+*.iml
+*.DS_Store
+**/.idea/*
+.idea_modules
+*.log
+console.http
+.ensime
+.ensime_cache/
+
+# play
+target/
+local.conf
+flyway.conf
+RUNNING_PID
+
+**/logs/
+
+.idea
+ssl
+!test/auth_adfs
