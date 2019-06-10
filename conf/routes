@@ -5,15 +5,42 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
+
 GET     /account/index              controllers.AccountController.index
 
 GET     /account/list               controllers.AccountController.getAccounts
+GET     /account/:id                controllers.AccountController.getAccountById(id)
 
 POST    /account/create             controllers.AccountController.createAccount
+
++nocsrf
+PUT     /account/update             controllers.AccountController.updateAccount
+
++nocsrf
+DELETE  /account/delete/:id         controllers.AccountController.deleteAccount(id)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-# OAuth2 Stuff
-GET        /_oauth-callback        util.OAuth2.callback(code: Option[String], state: Option[String])
-GET        /_oauth-success         util.OAuth2.success
+
+
+# Home page
+GET         /                                controllers.ApplicationController.index
+GET         /signOut                         controllers.ApplicationController.signOut
+GET         /authenticate/:provider          controllers.SocialAuthController.authenticate(provider)
+
+GET         /signUp                          controllers.SignUpController.view
+POST        /signUp                          controllers.SignUpController.submit
+
+GET         /signIn                          controllers.SignInController.view
+POST        /signIn                          controllers.SignInController.submit
+
+GET         /password/forgot                 controllers.ForgotPasswordController.view
+POST        /password/forgot                 controllers.ForgotPasswordController.submit
+GET         /password/reset/:token           controllers.ResetPasswordController.view(token: java.util.UUID)
+POST        /password/reset/:token           controllers.ResetPasswordController.submit(token: java.util.UUID)
+GET         /password/change                 controllers.ChangePasswordController.view
+POST        /password/change                 controllers.ChangePasswordController.submit
+
+GET         /account/email/:email            controllers.ActivateAccountController.send(email: String)
+GET         /account/activate/:token         controllers.ActivateAccountController.activate(token: java.util.UUID)
